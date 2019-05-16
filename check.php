@@ -35,6 +35,7 @@ $reqList = array(
         'xml' => false,
         'ctype' => false,
         'json' => false,
+        'bcmath' => false,
         'obs' => $laravel42Obs
     ),
     '5.0' => array(
@@ -47,6 +48,7 @@ $reqList = array(
         'xml' => false,
         'ctype' => false,
         'json' => false,
+        'bcmath' => false,
         'obs' => $laravel50Obs
     ),
     '5.1' => array(
@@ -59,6 +61,7 @@ $reqList = array(
         'xml' => false,
         'ctype' => false,
         'json' => false,
+        'bcmath' => false,
         'obs' => ''
     ),
     '5.2' => array(
@@ -74,6 +77,7 @@ $reqList = array(
         'xml' => false,
         'ctype' => false,
         'json' => false,
+        'bcmath' => false,
         'obs' => ''
     ),
     '5.3' => array(
@@ -89,6 +93,7 @@ $reqList = array(
         'xml' => true,
         'ctype' => false,
         'json' => false,
+        'bcmath' => false,
         'obs' => ''
     ),
     '5.4' => array(
@@ -101,6 +106,7 @@ $reqList = array(
         'xml' => true,
         'ctype' => false,
         'json' => false,
+        'bcmath' => false,
         'obs' => ''
     ),
     '5.5' => array(
@@ -113,6 +119,7 @@ $reqList = array(
         'xml' => true,
         'ctype' => false,
         'json' => false,
+        'bcmath' => false,
         'obs' => ''
     ),
     '5.6' => array(
@@ -125,6 +132,7 @@ $reqList = array(
         'xml' => true,
         'ctype' => true,
         'json' => true,
+        'bcmath' => false,
         'obs' => ''
     ),
     '5.7' => array(
@@ -137,6 +145,7 @@ $reqList = array(
         'xml' => true,
         'ctype' => true,
         'json' => true,
+        'bcmath' => false,
         'obs' => ''
     ),
     '5.8' => array(
@@ -149,6 +158,7 @@ $reqList = array(
         'xml' => true,
         'ctype' => true,
         'json' => true,
+        'bcmath' => true,
         'obs' => ''
     ),
 );
@@ -197,6 +207,9 @@ $requirements['json_enabled'] = extension_loaded("json");
 
 // Mcrypt
 $requirements['mcrypt_enabled'] = extension_loaded("mcrypt_encrypt");
+
+//bcmath
+$requirements['bcmath_enabled'] = extension_loaded("bcmath");
 
 // mod_rewrite
 $requirements['mod_rewrite_enabled'] = null;
@@ -334,12 +347,16 @@ if (function_exists('apache_get_modules')) {
     <?php if ($reqList[$laravelVersion]['mcrypt']) : ?>
         <p>Mcrypt PHP Extension <?php echo $requirements['mcrypt_enabled'] ? $strOk : $strFail; ?></p>
     <?php endif ?>
-    
+
+    <?php if ($reqList[$laravelVersion]['bcmath']) : ?>
+        <p>BCMath  PHP Extension <?php echo $requirements['bcmath_enabled'] ? $strOk : $strFail; ?></p>
+    <?php endif ?>
+
     <?php if (!empty($reqList[$laravelVersion]['obs'])): ?>
         <p class="obs"><?php echo $reqList[$laravelVersion]['obs'] ?></p>
     <?php endif; ?>
-    
-    
+
+
     <p>magic_quotes_gpc: <?php echo !ini_get('magic_quotes_gpc') ? $strOk : $strFail; ?> (value: <?php echo ini_get('magic_quotes_gpc') ?>)</p>
     <p>register_globals: <?php echo !ini_get('register_globals') ? $strOk : $strFail; ?> (value: <?php echo ini_get('register_globals') ?>)</p>
     <p>session.auto_start: <?php echo !ini_get('session.auto_start') ? $strOk : $strFail; ?> (value: <?php echo ini_get('session.auto_start') ?>)</p>
@@ -348,4 +365,3 @@ if (function_exists('apache_get_modules')) {
 </div>
 </body>
 </html>
-
